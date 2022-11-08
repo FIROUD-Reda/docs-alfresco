@@ -90,16 +90,15 @@ Use this information to verify that the system started correctly, and to clean u
         You should see a list of the services defined in your `docker-compose.yaml` file:
 
         ```text
-        Container                             Repository                                       Tag                    Image Id            Size  
-        ----------------------------------------------------------------------------------------------------------------------------------------
-        docker-compose-activemq-1             alfresco/alfresco-activemq                       5.16.4-jre11-centos7   d62db8e1bc78        720MB
-        docker-compose-alfresco-1             alfresco/alfresco-content-repository-community   7.3.0-M1               23f23883a071        1.2GB
-        docker-compose-content-app-1          alfresco/alfresco-content-app                    2.11.0                 1fdc41f92a2a        44.2MB
-        docker-compose-postgres-1             postgres                                         14.4                   1133a9cdc367        376MB
-        docker-compose-proxy-1                alfresco/alfresco-acs-nginx                      3.4.2                  f9c4519b7920        23.4MB
-        docker-compose-share-1                alfresco/alfresco-share                          7.3.0-M1               159c6aaf0d22        723MB
-        docker-compose-solr6-1                alfresco/alfresco-search-services                2.0.3                  88743e1bfb84        915MB
-        docker-compose-transform-core-aio-1   alfresco/alfresco-transform-core-aio             2.5.7                  bba1b5d18513        1.7GB
+        Container                             Repository                                       Tag                        Image Id            Size  
+        -------------------------------------------------------------------------------------------------------------------------------------------
+        docker-compose-activemq-1             alfresco/alfresco-activemq                       5.17.1-jre11-rockylinux8   0cd1a9629a85        632MB
+        docker-compose-alfresco-1             alfresco/alfresco-content-repository-community   7.3.0-M2                   e5bb8a596ac8        1.2GB
+        docker-compose-postgres-1             postgres                                         14.4                       e09e90144645        376MB
+        docker-compose-proxy-1                alfresco/alfresco-acs-nginx                      3.4.2                      f9c4519b7920        23.4MB
+        docker-compose-share-1                alfresco/alfresco-share                          7.3.0-M2                   25f0b45201ee        723MB
+        docker-compose-solr6-1                alfresco/alfresco-search-services                2.0.3                      88743e1bfb84        915MB
+        docker-compose-transform-core-aio-1   alfresco/alfresco-transform-core-aio             2.5.7                      bba1b5d18513        1.7GB
         ```
 
     2. List the running containers:
