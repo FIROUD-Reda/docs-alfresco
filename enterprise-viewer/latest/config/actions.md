@@ -72,7 +72,7 @@ Default Value: `(t:Navigation),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen
 
 ### enabledSignatureActions
 
-The Actions enabled in document signing mode.
+The Actions enabled in document signing mode. **NOTE: This action will allow users to draw their signature on a document.**
 ​
 
 Default Value: `(t:Navigation),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),
