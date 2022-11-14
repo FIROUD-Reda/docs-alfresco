@@ -20,3 +20,7 @@ The general Limitations of ACA
 > Only PDFs or documents with a PDF rendition are possible to redact
 > Only OCR’d PDFs are available to be redacted as part of this action
 > Folders must contain less than 50 redactable documents.  Actual number may vary based on environmental factors, but the action currently is not meant to scale to acting upon a large number of documents.
+
+## Send Combined Collection Email
+
+>Action is experimental but can be configured and supported by Hyland Services
