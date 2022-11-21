@@ -114,7 +114,7 @@ Default Value: `true`
 
 This URL points to a "help" website for using Alfresco Enterprise Viewer. **This is not recommended to be overridden.**
 
-Default Value: `http://www.tsgrp.com/Open_Source/OpenAnnotate/open_annotate.jsp`
+Default Value: `https://docs.alfresco.com/`
 
 #### printSummaryBaseType
 
