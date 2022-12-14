@@ -23,6 +23,99 @@ This is a list of the properties you can override in the `openannotate-override-
 
 Additional detail about each of these properties and their default values are listed in the next section.
 
+## Redaction Types & Security
+There are three types of redaction that may be configured:
+
+* `redactInPlace` will make the redactions directly on the document being redacted
+* `redactedAsCopy` will make a copy of the document being redacted and make the redactions on the copy (the original document will not be modified)
+* `unredactedAsCopy` will make a copy of the document being redacted and make the redactions on the original document (the copy will not include the redactions)
+
+### Setting up Security for Redacted / Unredacted files
+In order to lock a version (Redacted or Unredacted) to a particular security level, we can create a new Alfresco Behavior to run once the redactions occur. We may implement the `org.alfresco.repo.node.NodeServicePolicies` interface and use the method `OnUpdatePropertiesPolicy` to write custom logic to secure the redacted/unredacted document appropriately.
+Below is a sample code snippet showing custom logic written to set stricter permission to the UNREDACTED version of a document. 
+
+In this example...
+* The behavior code is written for the scenario where the redactionType is set to `unredactedAsCopy`. They are therefore securing the unredacted copy of the document to limit access more strictly. 
+* The `nodeRef` mentioned in this example is the unredacted copy of the original document. 
+
+```java
+	public void onUpdateProperties(final NodeRef nodeRef, final Map<QName, Serializable> before, final Map<QName, Serializable> after) {
+		logger.debug("Starting UnredactedPermissionsBehavior.onUpdateProperties");
+		
+		// STEP 1: Add "-UNREDACTED" to cm_title of the copy document
+		NodeService nodeService = serviceRegistry.getNodeService();
+		QName titleProp = QName.createQName(NamespaceService.CONTENT_MODEL_1_0_URI, TITLE_NAME);
+		Serializable currentTitle = nodeService.getProperty(nodeRef, titleProp);
+		currentTitle = (StringUtils.contains(currentTitle.toString(), "-UNREDACTED") ? currentTitle : currentTitle + "-UNREDACTED");
+		nodeService.setProperty(nodeRef, titleProp, currentTitle);
+		
+		AuthenticationUtil.runAs(new AuthenticationUtil.RunAsWork<Boolean>(){
+			public Boolean doWork() {		
+				PermissionService permissionService = serviceRegistry.getPermissionService();
+				
+				// STEP 2: clear out any permissions the copy document may be inheriting from its parent
+				boolean inheritTrue = permissionService.getInheritParentPermissions(nodeRef);
+				if(inheritTrue) {
+					permissionService.setInheritParentPermissions(nodeRef, false);
+				}
+				
+				// STEP 3: loop through the property names that are keys on the propertyMap...
+				// the propertyMap in this example is a 2 level map(Map<String, Map<String, String>>), it maps a property name to another map
+				// the second Map maps a property value to the list of groups that that property value corresponds to
+				// We recommend injecting this map into this new behavior class via spring bean injection 
+				for (String prop : propertyMap.keySet()) {
+					// the "prop" here is the oc_name for a particular property (ex: hy_documentTypeCode)
+					// We use that prop to get the second level map (aka propertyValueMap) based on that "prop"
+					Map<String, List<String>> propertyValueMap = propertyMap.get(prop);
+					
+					// We then get QName of property
+					QName propName = getPropertyQName(prop);
+
+					// Make sure our injected map was configured correctly and that we were able to locate the property we are currently looping on
+					if (propName != null) {
+
+						// At this point, we've located the property...
+						// Since this behavior runs on update, check if the property value changed on this doc as a part of this update
+						if (AlfrescoEmbUtil.propertyChanged(propName, before, after)) {
+							if (propertyValueMap.get((String)before.get(propName)) != null) {
+
+								// STEP 5: If the property value changed, let's clear out the permissions related to the old value of the property 
+								// since the permissions will now be based on the new property value 
+								List<String> prevGroups = propertyValueMap.get((String)before.get(propName));
+								for (String groupName : prevGroups) {
+									permissionService.clearPermission(nodeRef, groupName);
+								}
+							}
+						}
+
+						// STEP 6: Get the current value of the property we are looping on 
+						// and check if that value is in our propertyValueMap (meaning we have a permissions value in the map we can set for it)
+						if (propertyValueMap.get((String)after.get(propName)) != null) {
+							// STEP 7: If we found that property value in the map, lets set permissions for the new groups
+							// after we get the value of the groups from the map 
+							List<String> newGroups = propertyValueMap.get((String)after.get(propName));
+
+							// for each group, set the permissions on the doc
+							for (String groupName : newGroups) {
+								permissionService.setPermission(nodeRef, groupName, PermissionService.CONSUMER, true);
+							}
+						}	
+					} else {
+						// if the property doesn't exist will log an error and continue
+						logger.error("UnredactedPermissionsBehavior: Unable to set permissions - property does not exist: " + prop);
+					}
+				} 
+				return true;
+			}
+		}, AuthenticationUtil.getSystemUserName());
+
+		logger.debug("Finishing UnredactedPermissionsBehavior.onUpdateProperties");
+	}
+	
+```
+
+
+
 ## Default AEV Enabled Actions
 
 The following dives into each of these properties and documents the default values for the AEV actions enabled in each mode.
