@@ -617,6 +617,17 @@ java\{javaVersion}\bin\java -jar {ALFRESCO_HOME}\bin\alfresco-mmt.jar install {A
 
    Locate the `oa-share-external-launcher.amp` in the `Share Artifacts` folder of the alfresco-enterprise-viewer-package zip.
 
+   Edit the following files in the amp by extracting them or by editing them directly inside the amp:
+
+    * `/web/component/(documentlibrary or preview)/annotation-urls.js`
+    * `/web/component/(documentlibrary or preview)/annotation-urls-min.js`
+
+    You need to update the `Alfresco.constants.EXTERNAL_LAUNCHER_ANNOTATION_URL` variable within these files. This variable needs to be updated with the URL of the server that Alfresco Enterprise Viewer is going to be deployed on (even if Alfresco Enterprise Viewer is deployed on the same server as the Share web application).
+
+    For example:
+
+        Alfresco.constants.EXTERNAL_LAUNCHER_ANNOTATION_URL = "http://localhost:8080/OpenAnnotate/login/external.htm";
+
    Then, copy the amp to the `ALFRESCO_HOME/amps_share` directory (create the directory if it doesn't exist).
 
    From the directory where your alfresco tomcat lives, run this command (replacing {ALFRESCO_HOME} with the location of your `ALFRESCO_HOME`):
@@ -636,6 +647,17 @@ java\{javaVersion}\bin\java -jar {ALFRESCO_HOME}\bin\alfresco-mmt.jar install {A
 1. (OPTIONAL) This step is only required if using the Alfresco Enterprise Viewer Web Preview in Share (This replaces the OOB Share viewer with the Alfresco Enterprise Viewer).
 
    Locate the `oa-share-webpreview.amp` in the `Share Artifacts` folder of the alfresco-enterprise-viewer-package zip.
+
+   Edit the following files in the amp by extracting them or by editing them directly inside the amp:
+
+    * `/web/component/(documentlibrary or preview)/annotation-urls.js`
+    * `/web/component/(documentlibrary or preview)/annotation-urls-min.js`
+
+    In both cases, you need to update the `Alfresco.constants.WEBPREVIEW_ANNOTATION_URL` variable within these files. This variable needs to be updated with the URL of the server that Alfresco Enterprise Viewer is going to be deployed on (even if Alfresco Enterprise Viewer is deployed on the same server as the Share web application).
+
+    For example:
+
+        Alfresco.constants.WEBPREVIEW_ANNOTATION_URL = "http://localhost:8080/OpenAnnotate/login/external.htm";
 
    Then, copy the amp to the `ALFRESCO_HOME/amps_share` directory (create the directory if it doesn't exist).
 
