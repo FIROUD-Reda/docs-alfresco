@@ -77,6 +77,8 @@ For each instance of the Bulk Upload action (either as a header action or Stage 
     - Validate the list of extensions that should show the document preview window while uploading.  When users upload documents using the Bulk Upload action, the document preview will only display if the document's extension is in the configured list.  Otherwise, for extensions not in the list, the preview pane will not display.
 1. Advanced Properties -> Saved Sessions
     - Determine if users would like saved session functionality.  Saved sessions is useful when Bulk Upload actions regularly take users a non-trivial amount of effort.  If users generally fill out Bulk Upload forms in less than 5 minutes, Saved Sessions may not be needed.
+1. If you are ever going to enable Saved Sessions, re-run the hpi-setup script. 
+    - Open a browser window and navigate to the following URL: `{Alfresco Base URL}/alfresco/s/hpi/setup`
 1. Whether or not any updates were made, re-save the config. This will activate the new configurations.
 
 ### Policy and Procedure Updates

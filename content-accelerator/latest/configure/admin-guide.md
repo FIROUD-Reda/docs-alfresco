@@ -77,7 +77,7 @@ Add all types that will be used in the Content Accelerator (all repo types will 
 * Available filters include User Display Name, Date, Date Time, Time, Content Size, Mimetype, and Picklist.
 * Date and Date Time filters will honor the application config date format.
 * Picklist filtered values will utilize a single picklist named `OTCFilterPicklist` to filter the value. If the value is not found in the picklist, the original value will be displayed. For example, configuring the `Picklist` filter on the `objectTypeReadOnly` property can format `dm_document` as Document or `tsg:qualityDocument` as `Quality Document` for the end user to see when searching, viewing properties, etc.
-* There is the ability to create a `Composite Type`, which is a type that can include multiple Types. This is used only for types with overlapping attributes and there is a requirement to search on multiple types at once through the search interface.
+* `Deprecated (will be removed in a future release)` There is the ability to create a `Composite Type`, which is a type that can include multiple Types. This is used only for types with overlapping attributes and there is a requirement to search on multiple types at once through the search interface.
 
 ### Non-Mandatory Aspect
 
@@ -179,21 +179,12 @@ Ad Hoc Forms are very similar to regular forms with an additional feature to cre
 
 ### Template Management
 
-This section is for configuring and managing base templates that drive the OpenCapture solution. As the OpenCapture solution is available via configured dashboard queues, there is no trac-based configuration. Instead, templates are configured per type, with the possibility of multiple templates per type.
+* **Content Template** - allows administrators to create template documents that can be utilized in the Bulk Upload action for users to create documents from a template starting point.
 
-To set up an OpenCapture template:
+* **FreeMarker Template** - allows administrators to override default FTL templates provided in the ACA deployment.  For example, FTL template overrides can be used to change notification email content.
 
-1. Select the applicable object type to index.
-2. Create a new template.
-3. Import a sample document to base the template off. For example, upload an invoice from a common vendor.
-4. Select a fingerprint key attribute. A document's `fingerprint` is a combination of the key and the text/location data of the relevant metadata extracted from the content. The key should be an attribute that classifies the types of fingerprints expected to be generated. For example, invoices from a particular vendor tend to look the same and would therefore be identified by the same or similar fingerprint. Therefore, `vendor` is a good fingerprint key selection.
-5. Set up the key-value pair and zonal metadata extraction for each piece of metadata to extract.
+* **Wizard Form Template** - allows administrators to provide a Word document template that is used to apply Wizard form data to create the form PDF rendition and optionally a separate document.
 
-#### Saving and Publishing templates
-
-When saving a template, configuration data is being saved to the repository. When navigating to and from the Template Configuration section of the admin, saved templates can be loaded and changed.
-
-However, in order to make a template available to SuggestR, the machine learning engine, a template must be published.
 
 ### Tracs
 
@@ -365,7 +356,8 @@ The Attribute Search section covers the configuration of the property-based sear
 1. Toggle the "Enabled" switch under Attribute Search Controls
 2. Configure the default sort attribute
 3. Configure sort attribute and order
-4. Configure whether to allow search on all versions, which determines whether all versions or just the current version are brought back in the search results
+4. Configure whether to allow search on all versions, which determines whether all versions or just the current version are brought back in the search results. 
+> Search on all versions will only work for ACS documents that utilize the Chain Versionable Module.  Out of the box, this is only the `Controlled Document` and `Quality Document` types that are included in Policy and Procedure Accelerator. If search on all versions is configured for a type that does not use Chain Versioning, the slider will appear but will not search across versions when enabled.
 5. If search on all versions is allowed, select whether it should be the default method
 
 #### Search Results
@@ -507,6 +499,7 @@ Note that multiple viewers can be configured at a time, and will automatically b
 |HTML Viewer|HTML Viewer allows HTML files to be streamed in a standardized viewing platform. If configured with another viewer, it will be automatically launched if XML format is detected.<br/><br/>Supported formats:<br/>*.html*|
 |`PDF.js` Viewer|A standard PDF viewer using Mozilla's `PDF.js` library. This should only be configured if Alfresco Enterprise Viewer is not available.|
 |`Video.js` Viewer|A standard video viewer using the `video.js` library. This should only be configured if Alfresco Enterprise Viewer Video is not available.|
+|DICOM viewer| The DICOM viewer allows `.dcm` files to be displayed and interacted with via a DICOM specific viewer. The DICOM viewer includes a slider bar for interacting with images. As the slider bar is moved, the images move accordingly.  To use the slider bar, first use your mouse to select the bar, then use your mouse or arrow keys to move left or right and see the image progress.|
 
 Additional Viewer Configurations:
 
