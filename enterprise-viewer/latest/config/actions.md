@@ -125,12 +125,13 @@ The following dives into each of these properties and documents the default valu
 The Actions enabled in annotation mode.
 
 Default Value: `(t:Navigation),(prevPage,nextPage, zoomIn,zoomOut,--isSmallScreen),
-(t:Mode),d(t:Download,--dropdownLabel-Downloads,--dropdownIcon-download-alt),(t:AnnotationManipulation),
-(t:Misc),d(t:Text,--dropdownLabel-Text Annotations,--dropdownIcon-text-background),
-d(t:Color,--dropdownLabel-Color Picker,--dropdownIcon-OA-Color),
-d(drawLine,drawArrow,drawEllipse,drawRectangle,drawBox,textbox,freeDraw,--dropdownLabel-Drawing Tools,--dropdownIcon-pencil),
-d(approvedStamp,reviewedStamp,acceptStamp,rejectStamp,pageSizedCheckmarkStamp,--dropdownLabel-Stamps,--dropdownIcon-OA-Stamp),(t:Compare),
-(save,--isSmallScreen),(stickyNote,--isSmallScreen),(highlight,--isSmallScreen),(t:Help),(t:Collaboration,t:Summary,--sidebar)`
+(t:Mode),(t:PageEntry),d(checkinOfflineAnnotatedPdf,annotatedPdf,nativeContentDownload,extractPdfPages,offlineAnnotatedPdf,printAnnotatedPdf,
+printSectionsAction,--dropdownLabel-Downloads,--dropdownIcon-save_alt),(t:AnnotationManipulation),
+(t:Misc),d(t:Text,--dropdownLabel-Text Annotations,--dropdownIcon-font_download,--dropdownShowSelected),
+d(drawLine,drawArrow,drawEllipse,drawRectangle,drawBox,textbox,freeDraw,--dropdownLabel-Drawing Tools,--dropdownIcon-edit,--dropdownShowSelected),
+d(approvedStamp,paidStamp,reviewedStamp,acceptStamp,rejectStamp,pageSizedCheckmarkStamp,--dropdownLabel-Stamps,--dropdownIcon-layers,--dropdownShowSelected),
+d(t:Color,--dropdownLabel-Color Picker,--dropdownIcon-palette,--dropdownShowSelected),
+(save,--isSmallScreen),(printAnnotatedPdf,--isSmallScreen),(stickyNote,--isSmallScreen),(highlight,--isSmallScreen),(t:Help),(toggleChat,t:Summary,--sidebar)`
 
 ### enabledRedactionActions
 
@@ -138,14 +139,17 @@ The Actions enabled in redaction mode.
 ​
 
 Default Value: `(t:Navigation),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),
-(t:Mode),(save,--showAtAllSizes),(mouse),(drawRedaction,textRedaction,--showAtAllSizes),(t:Help)`
+(t:Mode),(t:PageEntry),(save,--showAtAllSizes),(mouse),(drawRedaction,textRedaction,--showAtAllSizes),(t:Help),(t:Search,--sidebar)
+enabledIndexerActions=(t:PageEntry),(t:Navigation),(mouse),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),(drawRectangle,--showAtAllSizes),(selectText),(t:Help)
+enabledEditActions=(t:Navigation),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),
+(t:Mode),(t:PageEntry),(save,--showAtAllSizes),(t:DocumentManipulation,--showAtAllSizes),(t:Help)`
 
 ### enabledIndexerActions
 
 The Actions enabled in indexing mode.
 ​
 
-Default Value: `(t:Navigation),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),(selectText),(t:Help)`
+Default Value: `(t:PageEntry),(t:Navigation),(mouse),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),(drawRectangle,--showAtAllSizes),(selectText),(t:Help)`
 
 ### enabledEditActions
 
@@ -153,14 +157,14 @@ The Actions enabled in document editing mode.
 ​
 
 Default Value: `(t:Navigation),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),
-(t:Mode),(save,--showAtAllSizes),(t:DocumentManipulation,--showAtAllSizes),(sectionPdfDocument,--showAtAllSizes),(t:Help)`
+(t:Mode),(t:PageEntry),(save,--showAtAllSizes),(t:DocumentManipulation,--showAtAllSizes),(t:Help)`
 
 ### enabledPageSelectActions
 
 The Actions enabled in document page selecting mode.  No additional actions are configured by default
 ​
 
-Default Value: `(t:Navigation),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),(t:Help)`
+Default Value: `(t:PageEntry),(t:Navigation),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),(t:Help)`
 ​
 
 ### enabledSignatureActions
@@ -169,7 +173,7 @@ The Actions enabled in document signing mode. **NOTE: This action will allow use
 ​
 
 Default Value: `(t:Navigation),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),
-(t:Mode),(save,--showAtAllSizes),(mouse),(signature),(t:Help)`
+(t:Mode),(t:PageEntry),(save,--showAtAllSizes),(mouse),(signature),(t:Help)`
 ​
 
 ### enabledOpenViewerActions
@@ -178,7 +182,7 @@ The Actions enabled in the quick document viewing mode.
 ​
 
 Default Value: `(t:Navigation),(prevPage,nextPage, zoomIn,zoomOut,--isSmallScreen),
-(t:Mode),(printAnnotatedPdf),(t:DocumentManipulation,--showAtAllSizes),(mouse),(t:Help)`
+(t:Mode),(t:PageEntry),(printAnnotatedPdf),(t:DocumentManipulation,--showAtAllSizes),(mouse),(t:Help)`
 
 ### enabledOpenViewerWithTextActions
 
@@ -186,7 +190,7 @@ The Actions enabled in the quick document viewing mode with text search and sele
 ​
 
 Default Value: `(t:Navigation),(prevPage,nextPage,zoomIn,zoomOut,--isSmallScreen),(selectText),
-(t:Mode),(t:PageEntry),(printAnnotatedPdf),(t:DocumentManipulation,--showAtAllSizes),(mouse),(t:Search,--sidebar)`
+(annotationMode,editMode,redactMode,viewerwithtextMode),(t:PageEntry),(printAnnotatedPdf),(mouse),(t:Search,--sidebar)`
 
 ## Overriding Enabled Actions
 
