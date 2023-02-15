@@ -14,13 +14,13 @@ There are a few configurations that will need to be setup in order to view overl
 
     This property tells the application that it should display configured overlays on documents. This should be set to true in order to see any configured overlays on viewing of documents.
 
-    Out of the Box ACA/AEV will have this set to false by default. If you installed an accelerator (PnP or Claims) which included installing the `opencontent-override-placeholders.properties` file packaged with the release then the configuration would be set to true in your install.
+    Out of the Box, this will be set to false by default. If you installed an accelerator (PnP or Claims) which included installing the `opencontent-override-placeholders.properties` file packaged with the release then the configuration would be set to true in your install.
 
     This property can be overridden in the `opencontent-extension-override-placeholders.properties` file in your [custom amp](https://docs.alfresco.com/content-accelerator/latest/develop/extension-content-accelerator/).
 
 1. `enableAEVTOverlays=true/false`
 
-    The following configuration will enable AEVT (OAT) to handle the transformations. If you have AEVT installed then this should be set to true, else it should be set to false. (The default value is false.)
+    This property will enable AEVT (OAT) to handle the overlays. If you have AEVT installed and overlays should be displayed, then this should be set to true, else it should be set to false. (The default value is false.)
 
     This property can be overridden in the `openannotate-override-placeholders.properties` file which can be found on the /alfresco classpath, for example, in the `ALFRESCO_HOME/tomcat/shared/classes` directory.
 
@@ -313,7 +313,7 @@ optimus.useOverrideOverlayConfigs=true
 
 #### Configure Overlays Overrides
 
-Once you enable the overlay config override, you have to add the overlay override zip file in the correct place within the Alfresco Content Accelerator (ACA) configs by following these steps.
+Once you enable the overlay config override, you have to add the overlay override zip file in the correct place within share by following these steps.
 
 1. Create the `oc-overlay-config-override.xml`
 
@@ -332,9 +332,10 @@ Once you enable the overlay config override, you have to add the overlay overrid
 
 1. Find or create the assets folder
 
-    * The ACA configs have the ability to configure different asset files within the application that are placed under within an `Assets` folder.
-    * However, only assets that will override the default assets will be placed within this folder. So, it is possibly to not have this `Assets` folder. Please create that folder now if not already created.
-
+    * We have the ability to configure different asset files within the application when they are placed under an `Assets` folder.
+    * However, only assets that will override the default assets will be placed within this folder. So, it is possibly to not have this `Assets` folder. 
+    * If the folder path does not exist in the share repository, create it now. The folder path needed in the share repository is `hpi > default > Assets`
+        * Note that this path assumes the appId is configured to the default (`optimus.overlayConfigOverrideAppId=default`) if you are overriding this value, you will need to update this path to reflect that.
 1. Name the overlay config override zip file
 
     * Naming is important within the `Assets` folder as AEVT will look for a particular zip name. This zip name is configurable within the `application.properties`. The default zip name is `oc-overlay-override-files`.
@@ -345,13 +346,11 @@ Once you enable the overlay config override, you have to add the overlay overrid
 
 1. Upload overlay config override zip file
 
-    * Under the `Assets` folder, upload the overlay config override file by moving or copying it to the `Assets` folder locally. Then, you can use the Config Archiver within the Admin section of ACA to upload these updated configs.
-    * A second option would be Alfresco specific. You can navigate in share to find the ACA config `Asset` folder (Refer Step 3 above for Find or create the assets folder). Then you can simply upload the overlay config override zip file here.
+    * Upload the overlay config override zip file into the Assets folder in the Share repository.
 
 1. Check other notable configuration properties
 
     * There are a couple other notable configuration properties that I will highlight here that need to be set.
-    * **overlayConfigOverrideAppId** : the asset file endpoint that is used within AEVT needs to know of an `appId`. This `appId` is what the outer folder is named within the ACA configs. Most of the time this `appId` will be set to `default`.
     * **openContentUrl**: the openContentUrl will be exactly what the name indicates, the url that points to OpenContent (EX: `http://localhost:8080/alfresco/OpenContent`). This is important for how AEVT needs to communicate with OpenContent.
     * **tempDirForFilesCachedFromNas**: the name is a little deceiving for how we are using it here, but it is defining what directory should we use as the temp directory (EX: C:/apacheHome/temp). The temp directory is where these overridden overlay config files will be placed.
 
@@ -379,16 +378,16 @@ The overlay config override file has been set and at this point you want to make
 
 1. Run the AEVT Refresh Endpoint
 
-    * Once the following update was made to the overlay config override zip file within the `Assets` folder of the ACA configs, you can run the AEVT GET endpoint `/optimus/refreshOverlayConfigOverrides` to refresh the overlay config override files. If successful, this will delete out any existing overlay config override files within the temp directory and put these updated ones in the temp directory.
+    * Once the following update was made to the overlay config override zip file within the `Assets` folder, you can run the AEVT GET endpoint `/optimus/refreshOverlayConfigOverrides` to refresh the overlay config override files. If successful, this will delete out any existing overlay config override files within the temp directory and put these updated ones in the temp directory.
     * The GET endpoint has no parameters. Here is an example of the endpoint: `http://localhost:7080/oat/optimus/refreshOverlayConfigOverrides`.
 
 ## Overriding Overlay Config Files when AEVT is NOT Installed
 
 When AEVT is not installed, overlay configurations can be overridden in your [custom amp](https://docs.alfresco.com/content-accelerator/latest/develop/extension-content-accelerator/).
 
-### How to override ACA overlay configurations in the custom amp
+### How to override overlay configurations in the custom amp
 
-To override the ACA default overlay configurations, the custom amp will need to inject a file called `opencontent-override-overlay-spring-config.xml` into the `alfresco/module/com.tsgrp.opencontent` location. This file should contain similar looking beans to this:
+To override the default overlay configurations, the custom amp will need to inject a file called `opencontent-override-overlay-spring-config.xml` into the `alfresco/module/com.tsgrp.opencontent` location. This file should contain similar looking beans to this:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
