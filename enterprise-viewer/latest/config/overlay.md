@@ -313,7 +313,7 @@ optimus.useOverrideOverlayConfigs=true
 
 #### Configure Overlays Overrides
 
-Once you enable the overlay config override, you have to add the overlay override zip file in the correct place within share by following these steps.
+Once you enable the overlay config override, you have to add the overlay override zip file in the correct place within the repository by following these steps.
 
 1. Create the `oc-overlay-config-override.xml`
 
@@ -334,7 +334,7 @@ Once you enable the overlay config override, you have to add the overlay overrid
 
     * We have the ability to configure different asset files within the application when they are placed under an `Assets` folder.
     * However, only assets that will override the default assets will be placed within this folder. So, it is possibly to not have this `Assets` folder. 
-    * If the folder path does not exist in the share repository, create it now. The folder path needed in the share repository is `hpi > default > Assets`
+    * If the folder path does not exist in the repository, create it now. The folder path needed in the repository is `hpi > default > Assets`
         * Note that this path assumes the appId is configured to the default (`optimus.overlayConfigOverrideAppId=default`) if you are overriding this value, you will need to update this path to reflect that.
 1. Name the overlay config override zip file
 
@@ -346,7 +346,7 @@ Once you enable the overlay config override, you have to add the overlay overrid
 
 1. Upload overlay config override zip file
 
-    * Upload the overlay config override zip file into the Assets folder in the Share repository.
+    * Upload the overlay config override zip file into the Assets folder in the repository.
 
 1. Check other notable configuration properties
 
@@ -368,7 +368,7 @@ The overlay config override file has been set and at this point you want to make
 
 1. Update Overlay Config Override Zip File
 
-    * To make changes, simply follow step above ([Refer Step 5 from Configure Overlays Overrides](#configure-overlays-overrides)) to re-upload the configs or re-upload the overlay config override file within Share, if you are in Alfresco.
+    * To make changes, simply follow step above ([Refer Step 5 from Configure Overlays Overrides](#configure-overlays-overrides)) to re-upload the configs or re-upload the overlay config override file within the repository.
 
 1. Clear OC Cache
 
