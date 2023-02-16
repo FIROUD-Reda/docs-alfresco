@@ -126,7 +126,7 @@ Add types to a form config by selecting the type from the available options. All
 * DateBox is a field for entering dates, with the option to restrict input to dates before or after the current day.
 * DatetimeBox is a field allowing users to enter a date and time, with the option to restrict input to dates before or after the current day.
 * Dropdown provides a dropdown menu based on a picklist.
-* NumericRange defines a control for a numeric range
+* NumericRange defines a control for a numeric range. The underlying datatype must to be a number to work properly.
 * ProximityDateSearch enables searching based on proximity to a specified date.
 * RadioButton offers a group of buttons defined by a picklist.
 * TextArea allows for text input.
